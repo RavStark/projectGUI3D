@@ -6,16 +6,21 @@ FILE(
 	GLOB_RECURSE
 	PROJECT_SRC
 	
-	Project/*.cpp
-	Project/*.hpp
-	Project/Camera/*.hpp
-	Project/Camera/*.cpp
+	Project/main.cpp
+)
+
+FILE(
+	GLOB_RECURSE
+	PROJECT_LIB
+	
+	Project/Engine/*.cpp
+	Project/Engine/*.hpp
 )
 
 FILE(
 	GLOB_RECURSE
 	PROJECT_SHADERS
-	Shaders/*
+	Project/Shaders/*
 )
 
 macro(GroupSources curdir)
@@ -48,7 +53,7 @@ GroupSources(Project)
 GroupSources(Shaders)
 
 INCLUDE_DIRECTORIES(
-	Include
+	Project
 
 	${CMAKE_SOURCE_DIR}/dependencies/glew-2.0.0/include
 	${CMAKE_SOURCE_DIR}/dependencies/glfw-3.2.1/include
@@ -89,6 +94,14 @@ ELSE(WIN32)
 
 ENDIF(WIN32)
 
+SET(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/lib/${CMAKE_BUILD_TYPE})
+
+ADD_LIBRARY (
+  GlEngine
+  STATIC
+  ${PROJECT_LIB}
+)
+
 ADD_EXECUTABLE(
 
   OpenGLTuto
@@ -96,9 +109,17 @@ ADD_EXECUTABLE(
   ${PROJECT_SRC}
   ${PROJECT_SHADERS}
 )
+
+ADD_DEPENDENCIES(
+  OpenGLTuto
+
+  GlEngine
+)
+
 set_property(SOURCE ${PROJECT_SHADERS} PROPERTY VS_DEPLOYMENT_CONTENT 1)
 set_property(SOURCE ${PROJECT_SHADERS} PROPERTY VS_DEPLOYMENT_LOCATION "Shaders")
 SET_TARGET_PROPERTIES(OpenGLTuto PROPERTIES DEBUG_POSTFIX "_d")
+SET_TARGET_PROPERTIES(GlEngine PROPERTIES DEBUG_POSTFIX "_d")
 SET(PROJECT_BIN_DIR ${PROJECT_SOURCE_DIR}/../Bin)
 SET_PROPERTY(TARGET OpenGLTuto  PROPERTY RUNTIME_OUTPUT_DIRECTORY_DEBUG ${PROJECT_BIN_DIR})
 
@@ -112,4 +133,6 @@ TARGET_LINK_LIBRARIES(
 	OpenGL32.lib
 	glew32s.lib
 	SOIL.lib
+    optimized GlEngine
+    debug GlEngine
 )

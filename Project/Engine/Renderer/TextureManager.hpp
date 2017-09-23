@@ -4,8 +4,7 @@
 
 typedef int GLint;
 typedef unsigned int GLuint;
-namespace Texture
-{
+
 	class TextureManager
 	{
 	public:
@@ -23,4 +22,3 @@ namespace Texture
 	private:
 		std::unordered_map<std::string, GLuint> _textureData;
 	};
-}

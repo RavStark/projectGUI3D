@@ -2,7 +2,7 @@
 
 #include <memory>
 #include <unordered_map>
-#include "PlaneGLProperties.hpp"
+
 typedef unsigned int GLuint;
 template<class T, class V>
 class ManageObjects

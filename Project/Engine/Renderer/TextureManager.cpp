@@ -2,8 +2,7 @@
 #include <iostream>
 #include <SOIL.h>
 #include "GL\glew.h"
-namespace Texture
-{
+
 
 	TextureManager::TextureManager()
 	{
@@ -53,4 +52,3 @@ namespace Texture
 			std::cerr << "TEXTUREMANAGER::GETTEXTURE::FAILED " << name.c_str() << std::endl;
 		return 0; // BAD BUT RETURN DEFAULT TEXTURE ID
 	}
-}
