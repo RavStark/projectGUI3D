@@ -22,7 +22,7 @@ public:
 
 	virtual glm::mat4 viewMatrix() const = 0;
 	virtual glm::mat4 projectionMatrix() const = 0;
-	virtual void updateDirection(float pitch, float yaw, float roll) = 0;
+	virtual void updateDirection(float yaw, float pitch, float roll) = 0;
 	void processKeyboard(Camera_Movement, float deltaTime);
 	glm::vec3 getPos() const; //Get camera position vector
 	void setPos(const glm::vec3 &newPos);

@@ -55,8 +55,11 @@ void Renderer::draw()
 	_multipleLightingShader->setVec3("dirLight.diffuse", 1.0f);
 	_multipleLightingShader->setVec3("dirLight.specular", 1.0f);
 	unsigned idx = 0;
+	//Set light shader 4 PointLights Max for now
 	for (auto light : _lightsManager->getPointLights())
 	{
+		if (idx == 4)
+			break;
 		_multipleLightingShader->setVec3(std::string("pointLights["+std::to_string(idx) + "].position").c_str(), light->getPos());
 		_multipleLightingShader->setVec3(std::string("pointLights[" + std::to_string(idx) + "].ambient").c_str(), light->getAmbient());
 		_multipleLightingShader->setVec3(std::string("pointLights[" + std::to_string(idx) + "].diffuse").c_str(), light->getDiffuse());
@@ -66,31 +69,6 @@ void Renderer::draw()
 		_multipleLightingShader->setFloat(std::string("pointLights[" + std::to_string(idx) + "].quadratic").c_str(), light->getQuadratic());
 		idx++;
 	}
-	
-	// point light 2
-	this->_shader->setVec3("pointLights[1].position", pointLightPositions[1]);
-	this->_shader->setVec3("pointLights[1].ambient", 0.05f, 0.05f, 0.05f);
-	this->_shader->setVec3("pointLights[1].diffuse", 0.8f, 0.8f, 0.8f);
-	this->_shader->setVec3("pointLights[1].specular", 1.0f, 1.0f, 1.0f);
-	this->_shader->setFloat("pointLights[1].constant", 1.0f);
-	this->_shader->setFloat("pointLights[1].linear", 0.09f);
-	this->_shader->setFloat("pointLights[1].quadratic", 0.032f);
-	// point light 3
-	this->_shader->setVec3("pointLights[2].position", pointLightPositions[2]);
-	this->_shader->setVec3("pointLights[2].ambient", 0.05f, 0.05f, 0.05f);
-	this->_shader->setVec3("pointLights[2].diffuse", 0.8f, 0.8f, 0.8f);
-	this->_shader->setVec3("pointLights[2].specular", 1.0f, 1.0f, 1.0f);
-	this->_shader->setFloat("pointLights[2].constant", 1.0f);
-	this->_shader->setFloat("pointLights[2].linear", 0.09);
-	this->_shader->setFloat("pointLights[2].quadratic", 0.032);
-	// point light 4
-	this->_shader->setVec3("pointLights[3].position", pointLightPositions[3]);
-	this->_shader->setVec3("pointLights[3].ambient", 0.05f, 0.05f, 0.05f);
-	this->_shader->setVec3("pointLights[3].diffuse", 0.8f, 0.8f, 0.8f);
-	this->_shader->setVec3("pointLights[3].specular", 1.0f, 1.0f, 1.0f);
-	this->_shader->setFloat("pointLights[3].constant", 1.0f);
-	this->_shader->setFloat("pointLights[3].linear", 0.09f);
-	this->_shader->setFloat("pointLights[3].quadratic", 0.032f);
 
 	_simpleShader->setVec3("lightColor", 0.0f, 1.0f, 0.0f);
 	_objectsManager->draw();

@@ -57,22 +57,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		else
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
-	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
-	{
-		camera->processKeyboard(Camera::FORWARD, deltaTime);
-	}
-	if (key == GLFW_KEY_DOWN && action == GLFW_PRESS)
-	{
-		camera->processKeyboard(Camera::BACKWARD, deltaTime);
-	}
-	if (key == GLFW_KEY_LEFT && action == GLFW_PRESS)
-	{
-		camera->processKeyboard(Camera::LEFT, deltaTime);
-	}
-	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
-	{
-		camera->processKeyboard(Camera::RIGHT, deltaTime);
-	}
+
 	
 	if (action == GLFW_PRESS)
 		keys[key] = true;
@@ -167,6 +152,23 @@ void do_mouvement(std::shared_ptr<CameraFps> &cam)
 	{
 		if (diffuse > 0)
 			diffuse -= 0.1f;
+	}
+	int speed = 50;
+	if (keys[GLFW_KEY_UP])
+	{
+		camera->updateDirection(0, speed, 0);
+	}
+	if (keys[GLFW_KEY_DOWN])
+	{
+		camera->updateDirection(0, -speed, 0);
+	}
+	if (keys[GLFW_KEY_LEFT])
+	{
+		camera->updateDirection(-speed, 0, 0);
+	}
+	if (keys[GLFW_KEY_RIGHT])
+	{
+		camera->updateDirection(speed, 0, 0);
 	}
 	float ambient = 0.0f;
 	float diffuse = 0.0f;
