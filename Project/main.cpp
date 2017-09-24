@@ -120,7 +120,9 @@ void do_mouvement(std::shared_ptr<CameraFps> &cam)
 		cam->setPos(camera->getPos() - cameraSpeed * cam->getFront());
 	}
 	if (keys[GLFW_KEY_A])
+	{
 		cam->setPos(camera->getPos() - cameraSpeed * glm::normalize(glm::cross(cam->getFront(), cam->getUp())));
+	}
 	if (keys[GLFW_KEY_D])
 		cam->setPos(camera->getPos() + cameraSpeed * glm::normalize(glm::cross(cam->getFront(), cam->getUp())));
 	if (keys[GLFW_KEY_8])
@@ -170,13 +172,11 @@ void do_mouvement(std::shared_ptr<CameraFps> &cam)
 	{
 		camera->updateDirection(speed, 0, 0);
 	}
-	float ambient = 0.0f;
-	float diffuse = 0.0f;
 }
 
-int main(int ac, char *av[])
+int main(int , char *[])
 {
-	
+	glEnable(GL_DEPTH_TEST);
 	if (initializeOpenGL() == -1)
 		return -1;
 
@@ -208,10 +208,10 @@ int main(int ac, char *av[])
 	
 	// positions of the point lights
 	glm::vec3 pointLightPositions[] = {
-		glm::vec3(0.7f,  0.2f,  2.0f),
-		glm::vec3(2.3f, -3.3f, -4.0f),
-		glm::vec3(-4.0f,  2.0f, -12.0f),
-		glm::vec3(0.0f,  0.0f, -3.0f)
+		glm::vec3(1.2f, 1.0f, 2.0f)
+		//glm::vec3(2.3f, -3.3f, -4.0f),
+		//glm::vec3(-4.0f,  2.0f, -12.0f),
+		//glm::vec3(0.0f,  0.0f, -3.0f)
 	};
 
 	int screenWidth, screenHeight;
@@ -238,19 +238,22 @@ int main(int ac, char *av[])
 	for (auto lightPos : pointLightPositions)
 	{
 		auto pointLight = std::make_shared<PointLight>(lightPos);
+		renderer.addObject(lightPos, glm::vec3(0.2));
 		renderer.addLight(pointLight);
 	}
 
 
 	
-	renderer.addObject(glm::vec3(0.0f, 0.0f, 0.0f));
+	//renderer.addObject(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(1.0), glm::vec3(1.0f, 0.5f, 0.31f));
 	
-	glEnable(GL_DEPTH_TEST);
+	renderer.addModel("./Project/Ressources/Model/Nanosuit/nanosuit.obj", glm::vec3(0.0f, 0.0f, 0.0f));
+	
 	glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 	glm::vec3 lightDir(-0.2f, -1.0f, -0.2);
 	glm::vec3 lightColor(1.0f, 1.0f, 1.0f);
 
 	glm::vec3 planePos = glm::vec3(0.f, -2.f, -3.f);
+	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window))
 	{
 		GLfloat currentFrame = glfwGetTime();
@@ -260,7 +263,9 @@ int main(int ac, char *av[])
 		do_mouvement(camera);
 		glClearColor(0.f, 0.f, 0.f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+		renderer.x = camera->getPos().x;
+		renderer.y = camera->getPos().y;
+		renderer.z = camera->getPos().z;
 		renderer.draw();
 		//cubeRenderer->draw(textureManager, camera);
 		/*** PLANE SHADER **/

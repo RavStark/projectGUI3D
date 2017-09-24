@@ -59,6 +59,7 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/dependencies/glfw-3.2.1/include
 	${CMAKE_SOURCE_DIR}/dependencies/SimpleOpenGLImageLibrary/src
 	${CMAKE_SOURCE_DIR}/dependencies/glm
+	${CMAKE_SOURCE_DIR}/dependencies/assimp-3.3.1/include
 )
 
 LINK_DIRECTORIES(
@@ -66,6 +67,7 @@ LINK_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/dependencies/glew-2.0.0/lib/Release/Win32
 	${CMAKE_SOURCE_DIR}/dependencies/glfw-3.2.1/lib-vc2015/${CMAKE_BUILD_TYPE}
 	${CMAKE_SOURCE_DIR}/dependencies/SimpleOpenGLImageLibrary/projects/VC9/${CMAKE_BUILD_TYPE}
+	${CMAKE_SOURCE_DIR}/dependencies/assimp-3.3.1/lib/${CMAKE_BUILD_TYPE}
 )
 
 
@@ -133,6 +135,7 @@ TARGET_LINK_LIBRARIES(
 	OpenGL32.lib
 	glew32s.lib
 	SOIL.lib
+	assimp-vc140-mt.lib
     optimized GlEngine
     debug GlEngine
 )

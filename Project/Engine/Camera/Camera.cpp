@@ -37,7 +37,7 @@ glm::vec3 Camera::getPos() const	//Get camera position vector
 void Camera::setPos(const glm::vec3 &newPos)
 {
 	_cameraPos = newPos;
-	std::cout << _cameraPos.x << " " << _cameraPos.y << " " << _cameraPos.z << std::endl;
+	//std::cout << _cameraPos.x << " " << _cameraPos.y << " " << _cameraPos.z << std::endl;
 }
 
 glm::vec3 Camera::getFront() const //Get camera front vector
