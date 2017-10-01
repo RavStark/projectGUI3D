@@ -15,7 +15,7 @@ class TextureManager;
 class Object
 {
 public:
-	explicit Object(const std::shared_ptr<Shader>& shader,const glm::vec3 &pos, const glm::vec3 &size = glm::vec3(1.f), const glm::vec3& color = glm::vec3(1.f));
+	explicit Object(const std::shared_ptr<Shader>& shader,const glm::vec3 &pos, const glm::vec3 &size, const glm::vec3& color);
 	virtual ~Object();
 
 	virtual void initRenderData() = 0;

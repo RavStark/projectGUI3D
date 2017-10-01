@@ -9,7 +9,7 @@ typedef float GLfloat;
 class ILight
 {
 public:
-	explicit ILight(const glm::vec3 &color = glm::vec3(1.f), const glm::vec3 &ambient = glm::vec3(0.2f), const glm::vec3 &diffuse = glm::vec3(0.5f), const glm::vec3 &specular = glm::vec3(1.0f))
+	explicit ILight(const glm::vec3 &color, const glm::vec3 &ambient, const glm::vec3 &diffuse, const glm::vec3 &specular)
 		:
 		_color(color),
 		_ambient(ambient),

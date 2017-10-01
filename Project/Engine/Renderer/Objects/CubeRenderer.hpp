@@ -10,7 +10,7 @@ typedef float GLfloat;
 class CubeRenderer : public Object
 {
 public:
-	explicit CubeRenderer(const std::shared_ptr<Shader>& shader, const glm::vec3 &pos, const glm::vec3 &size = glm::vec3(1.f), const glm::vec3& color = glm::vec3(1.f));
+	explicit CubeRenderer(const std::shared_ptr<Shader>& shader, const glm::vec3 &pos, const glm::vec3 &size = glm::vec3(1.0), const glm::vec3& color = glm::vec3(1.0));
 	~CubeRenderer();
 
 	virtual void initRenderData();
